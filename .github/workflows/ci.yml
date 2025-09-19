@@ -20,7 +20,18 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          go test ./... -covermode=atomic -coverprofile=coverage.out -v
+          go test ./... -covermode=atomic -coverprofile=coverage.out
+
+      - name: Show coverage %
+        run: |
+          echo "Total coverage:"
+          go tool cover -func=coverage.out | grep total
+
+      - name: Enforce minimum 80% coverage
+        run: |
+          pct=$(go tool cover -func=coverage.out | grep total | awk '{print substr($3, 1, length($3)-1)}')
+          echo "Coverage: $pct%"
+          awk -v p="$pct" 'BEGIN {exit !(p >= 80)}'
 
       - name: Upload coverage report
         if: success()
@@ -28,4 +39,5 @@ jobs:
         with:
           files: ./coverage.out
           flags: common
+          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
