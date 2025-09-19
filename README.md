@@ -1,4 +1,4 @@
-<h1><img src="https://github.com/entiqon/entiqon/blob/main/assets/entiqon_sharicon.png?raw=true" align="center" height="64" width="64"> Common Module</h1>
+# Common
 
 ## 🌱 Overview
 
@@ -10,24 +10,24 @@ It enables consistency, code reuse, and reliable parsing/error handling.
 ## 🚀 Quick Start
 
 ```bash
-go get github.com/entiqon/entiqon
+go get github.com/entiqon/common
 ```
 
 ---
 
 ## 📦 Subpackages
 
-| Package                                                | Description                                                   |
-|--------------------------------------------------------|---------------------------------------------------------------|
-| [🧩 common/errors](../common/errors/README.md)         | Extended error types with cause, reason, and process stage.   |
-| [🧩 common/extension](../common/extension/README.md)   | Type parsers, collections, object helpers, and shortcuts.     |
-
-
----
-
-## 📘 Developer Guides
-
-- [ProcessStage](../../docs/packages/common/guides/ProcessStage_Developer_Guide.md) — Dialects, StageToken, ParamBinder integration
+| Package                                                   | Description                                                                                         |
+|-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| [🧩 errors](../common/errors/README.md)                   | Sentinel errors (`UnsupportedTypeError`, `InvalidIdentifierError`) with GoDoc and examples.         |
+| [🧩 extension/boolean](../common/extension/boolean)       | Parsing helpers for booleans with extended tokens (`on/off`, `y/n`, `t/f`); `BoolToString` utility. |
+| [🧩 extension/date](../common/extension/date)             | Deterministic parsing/cleaning (`CleanAndParse`, strict `YYYYMMDD`).                                |
+| [🧩 extension/decimal](../common/extension/decimal)       | Decimal parsers with safe fallback (`Or`) and rounding.                                             |
+| [🧩 extension/float](../common/extension/float)           | Float parsers with fallback (`Or`) support.                                                         |
+| [🧩 extension/number](../common/extension/number)         | General number parsing with fallback and normalization.                                             |
+| [🧩 extension/integer](../common/extension/integer)       | `ParseFrom(any)`, `IntegerOr`, consistent with other numeric parsers.                               |
+| [🧩 extension/collection](../common/extension/collection) | Helpers for slices and maps.                                                                        |
+| [🧩 extension/object](../common/extension/object)         | Generic object utilities (`Exists`, `GetValue`, `SetValue`).                                        |
 
 
 ---
