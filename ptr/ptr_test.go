@@ -14,6 +14,24 @@ type sample struct {
 
 func TestPtrSuite(t *testing.T) {
 	t.Run("ptr", func(t *testing.T) {
+		t.Run("EmptyString", func(t *testing.T) {
+			got := ptr.EmptyString()
+
+			if got == nil {
+				t.Fatal("EmptyString returned nil")
+			}
+
+			if *got != "" {
+				t.Errorf(`EmptyString() = %q; want ""`, *got)
+			}
+
+			// Ensure each call returns a distinct pointer.
+			other := ptr.EmptyString()
+			if got == other {
+				t.Error("EmptyString returned the same pointer instance")
+			}
+		})
+
 		t.Run("ToPtr", func(t *testing.T) {
 			t.Run("Int", func(t *testing.T) {
 				got := ptr.ToPtr(42)

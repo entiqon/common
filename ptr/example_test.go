@@ -29,6 +29,15 @@ func ExampleFromPtr() {
 	// John Doe
 }
 
+func ExampleEmptyString() {
+	value := ptr.EmptyString()
+
+	fmt.Printf("%q\n", *value)
+
+	// Output:
+	// ""
+}
+
 func ExampleNilIfEmpty() {
 	fmt.Println(ptr.NilIfEmpty(""))
 

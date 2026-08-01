@@ -7,6 +7,18 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.2.0] - 2026-08-01
+
+### Added
+
+- Added `ptr.EmptyString()`.
+
+### Changed
+
+- Updated `ptr` documentation and examples.
+
+---
+
 ## [1.1.0] - 2026-08-01
 
 ### Added

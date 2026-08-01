@@ -2,6 +2,11 @@ package ptr
 
 import "strings"
 
+// EmptyString returns a pointer to an empty string.
+func EmptyString() *string {
+	return new(string)
+}
+
 // ToPtr returns a pointer to v.
 func ToPtr[T any](v T) *T {
 	return &v

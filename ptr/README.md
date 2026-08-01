@@ -1,8 +1,12 @@
 # ptr
 
-<h6 align="left">Part of the <a href="https://github.com/entiqon/entiqon">entiqon</a>::<a href="https://github.com/entiqon/entiqon">common</a> toolkit.</h6>
+<h6 align="left">
+  Part of the
+  <a href="https://github.com/entiqon/entiqon">entiqon</a>::<a href="https://github.com/entiqon/common">common</a>
+  toolkit.
+</h6>
 
-The `ptr` package provides small, generic helpers for working with pointers in Go. It simplifies common pointer operations such as creating pointers, safely dereferencing values, and converting empty or blank strings to `nil`.
+The `ptr` package provides lightweight, generic helpers for working with pointers in Go. It simplifies common pointer operations such as creating pointers, safely dereferencing values, working with optional values, and normalizing empty or blank strings.
 
 ## Installation
 
@@ -14,9 +18,10 @@ go get github.com/entiqon/common/ptr
 
 - Create pointers from values.
 - Safely dereference pointers with a default value.
+- Create pointers to empty strings.
 - Convert empty strings to `nil`.
 - Convert blank (whitespace-only) strings to `nil`.
-- Generic implementation with zero dependencies.
+- Generic implementation with zero external dependencies.
 
 ## Usage
 
@@ -81,6 +86,34 @@ Output:
 
 ---
 
+### Create an Empty String Pointer
+
+Use `EmptyString` when a `*string` is required and the value should be the empty string.
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/entiqon/common/ptr"
+)
+
+func main() {
+	value := ptr.EmptyString()
+
+	fmt.Printf("%q\n", *value)
+}
+```
+
+Output:
+
+```text
+""
+```
+
+---
+
 ### Return `nil` for Empty Strings
 
 Use `NilIfEmpty` when an empty string should be treated as an absent value.
@@ -96,7 +129,12 @@ import (
 
 func main() {
 	fmt.Println(ptr.NilIfEmpty(""))
-	fmt.Println(*ptr.NilIfEmpty("hello"))
+
+	value := ptr.NilIfEmpty("hello")
+
+	if value != nil {
+		fmt.Println(*value)
+	}
 }
 ```
 
@@ -127,7 +165,9 @@ func main() {
 
 	value := ptr.NilIfBlank(" hello ")
 
-	fmt.Println(*value)
+	if value != nil {
+		fmt.Println(*value)
+	}
 }
 ```
 
@@ -140,23 +180,25 @@ Output:
 
 ## API
 
-| Function                        | Description                                                                                    |
-|---------------------------------|------------------------------------------------------------------------------------------------|
-| `ToPtr[T any](v T) *T`          | Returns a pointer to `v`.                                                                      |
-| `FromPtr[T any](p *T, def T) T` | Returns the dereferenced value if `p` is not `nil`; otherwise returns `def`.                   |
-| `NilIfEmpty(v string) *string`  | Returns `nil` if `v` is empty; otherwise returns a pointer to `v`.                             |
-| `NilIfBlank(v string) *string`  | Returns `nil` if `v` is empty or contains only whitespace; otherwise returns a pointer to `v`. |
+| Function | Description |
+|----------|-------------|
+| `ToPtr[T any](v T) *T` | Returns a pointer to `v`. |
+| `FromPtr[T any](p *T, def T) T` | Returns the dereferenced value if `p` is not `nil`; otherwise returns `def`. |
+| `EmptyString() *string` | Returns a pointer to an empty string (`""`). |
+| `NilIfEmpty(v string) *string` | Returns `nil` if `v` is empty; otherwise returns a pointer to `v`. |
+| `NilIfBlank(v string) *string` | Returns `nil` if `v` is empty or contains only whitespace; otherwise returns a pointer to `v`. |
 
 ## When to Use
 
 The `ptr` package is useful when working with:
 
-- Optional fields in structs.
-- JSON and XML serialization.
-- Database models with nullable values.
-- Configuration values.
+- Optional struct fields.
+- JSON, XML, and YAML serialization.
+- Database models with nullable or optional values.
+- Configuration objects.
+- DTOs and API request/response models.
 - APIs that use pointers to distinguish between zero values and missing values.
 
 ## License
 
-This package is part of the Entiqon Common library.
+This package is part of the **Entiqon Common** library and is distributed under the MIT License.
