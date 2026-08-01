@@ -1,0 +1,79 @@
+name: Common CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Go ${{ matrix.go-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version:
+          - "1.25"
+          - stable
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Verify formatting
+        run: |
+          test -z "$(gofmt -l .)"
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Run tests with race detector and coverage
+        run: |
+          go test \
+            -race \
+            -covermode=atomic \
+            -coverprofile=coverage.out \
+            ./...
+
+      - name: Show coverage
+        run: |
+          echo "Total coverage:"
+          go tool cover -func=coverage.out | grep total
+
+      - name: Enforce minimum 80% coverage
+        run: |
+          COVERAGE=$(go tool cover -func=coverage.out | awk '/^total:/ {sub("%","",$3); print $3}')
+
+          echo "Coverage: ${COVERAGE}%"
+
+          awk -v c="$COVERAGE" 'BEGIN {
+              if (c < 80) {
+                  printf("Coverage %.2f%% is below the required 80%%.\n", c)
+                  exit 1
+              }
+          }'
+
+      - name: Upload coverage to Codecov
+        if: success() && matrix.go-version == '1.25'
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage.out
+          flags: common
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
