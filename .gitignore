@@ -1,0 +1,57 @@
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Editor artifacts
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Git merge artifacts
+*.orig
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Go binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+
+# Coverage
+coverage.out
+coverage.html
+*.coverprofile
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+
+# Generated documentation
+docs/_site/
+docs/public/
+public/
+
+# Temporary release artifacts
+releases/
+
+# Build artifacts
+dist/
+bin/

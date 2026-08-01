@@ -40,36 +40,37 @@ Returns updated object or error.
 package main
 
 import (
-    "fmt"
-    "github.com/entiqon/common/extension/object"
+	"fmt"
+	"github.com/entiqon/common/extension/object"
 )
 
 type Item struct {
-    ID   int
-    Name string
+	ID   int
+	Name string
 }
 
 func main() {
-    // Map example
-    m := map[string]any{"Foo": 123}
-    fmt.Println(object.Exists(m, "foo")) // true
+	// Map example
+	m := map[string]any{"Foo": 123}
+	fmt.Println(object.Exists(m, "foo")) // true
 
-    val := object.GetValue[int](m, "foo", 0)
-    fmt.Println(val) // 123
+	val := object.GetValue[int](m, "foo", 0)
+	fmt.Println(val) // 123
 
-    m, _ = object.SetValue(m, "Bar", "baz")
-    fmt.Println(m["Bar"]) // baz
+	m, _ = object.SetValue(m, "Bar", "baz")
+	fmt.Println(m["Bar"]) // baz
 
-    // Struct example
-    item := &Item{ID: 10, Name: "Book"}
-    fmt.Println(object.Exists(item, "Name")) // true
+	// Struct example
+	item := &Item{ID: 10, Name: "Book"}
+	fmt.Println(object.Exists(item, "Name")) // true
 
-    name := object.GetValue[string](item, "Name", "default")
-    fmt.Println(name) // Book
+	name := object.GetValue[string](item, "Name", "default")
+	fmt.Println(name) // Book
 
-    item, _ = object.SetValue(item, "Name", "Notebook")
-    fmt.Println(item.Name) // Notebook
+	item, _ = object.SetValue(item, "Name", "Notebook")
+	fmt.Println(item.Name) // Notebook
 }
+
 ```
 
 ---
