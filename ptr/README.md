@@ -8,6 +8,8 @@
 
 The `ptr` package provides lightweight, generic helpers for working with pointers in Go. It simplifies common pointer operations such as creating pointers, safely dereferencing values, working with optional values, and normalizing empty or blank strings.
 
+The package requires **Go 1.18 or later** because it uses generics.
+
 ## Installation
 
 ```bash
@@ -27,7 +29,7 @@ go get github.com/entiqon/common/ptr
 
 ### Create a Pointer
 
-Use `ToPtr` to create a pointer from any value.
+Use `Of` to create a pointer from any value.
 
 ```go
 package main
@@ -39,7 +41,7 @@ import (
 )
 
 func main() {
-	name := ptr.ToPtr("John")
+	name := ptr.Of("John")
 
 	fmt.Println(*name)
 }
@@ -55,7 +57,7 @@ John
 
 ### Dereference with a Default Value
 
-Use `FromPtr` to safely read a pointer, returning a default value when the pointer is `nil`.
+Use `Deref` to safely read a pointer, returning a default value when the pointer is `nil`.
 
 ```go
 package main
@@ -69,11 +71,11 @@ import (
 func main() {
 	var age *int
 
-	fmt.Println(ptr.FromPtr(age, 18))
+	fmt.Println(ptr.Deref(age, 18))
 
-	age = ptr.ToPtr(25)
+	age = ptr.Of(25)
 
-	fmt.Println(ptr.FromPtr(age, 18))
+	fmt.Println(ptr.Deref(age, 18))
 }
 ```
 
@@ -180,13 +182,20 @@ Output:
 
 ## API
 
-| Function | Description |
-|----------|-------------|
-| `ToPtr[T any](v T) *T` | Returns a pointer to `v`. |
-| `FromPtr[T any](p *T, def T) T` | Returns the dereferenced value if `p` is not `nil`; otherwise returns `def`. |
-| `EmptyString() *string` | Returns a pointer to an empty string (`""`). |
-| `NilIfEmpty(v string) *string` | Returns `nil` if `v` is empty; otherwise returns a pointer to `v`. |
+| Function                       | Description                                                                                    |
+|--------------------------------|------------------------------------------------------------------------------------------------|
+| `Of[T any](v T) *T`            | Returns a pointer to `v`.                                                                      |
+| `Deref[T any](p *T, def T) T`  | Returns the dereferenced value if `p` is not `nil`; otherwise returns `def`.                   |
+| `EmptyString() *string`        | Returns a pointer to an empty string (`""`).                                                   |
+| `NilIfEmpty(v string) *string` | Returns `nil` if `v` is empty; otherwise returns a pointer to `v`.                             |
 | `NilIfBlank(v string) *string` | Returns `nil` if `v` is empty or contains only whitespace; otherwise returns a pointer to `v`. |
+
+### Deprecated
+
+| Function                        | Replacement                  |
+|---------------------------------|------------------------------|
+| `ToPtr[T any](v T) *T`          | Use `Of(v)` instead.         |
+| `FromPtr[T any](p *T, def T) T` | Use `Deref(p, def)` instead. |
 
 ## When to Use
 

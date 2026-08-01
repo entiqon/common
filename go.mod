@@ -1,3 +1,3 @@
 module github.com/entiqon/common
 
-go 1.26.5
+go 1.18

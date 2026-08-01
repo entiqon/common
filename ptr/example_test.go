@@ -6,8 +6,8 @@ import (
 	"github.com/entiqon/common/ptr"
 )
 
-func ExampleToPtr() {
-	name := ptr.ToPtr("John Doe")
+func ExampleOf() {
+	name := ptr.Of("John Doe")
 
 	fmt.Println(*name)
 
@@ -15,14 +15,14 @@ func ExampleToPtr() {
 	// John Doe
 }
 
-func ExampleFromPtr() {
+func ExampleDeref() {
 	var name *string
 
-	fmt.Println(ptr.FromPtr(name, "Unknown"))
+	fmt.Println(ptr.Deref(name, "Unknown"))
 
-	name = ptr.ToPtr("John Doe")
+	name = ptr.Of("John Doe")
 
-	fmt.Println(ptr.FromPtr(name, "Unknown"))
+	fmt.Println(ptr.Deref(name, "Unknown"))
 
 	// Output:
 	// Unknown

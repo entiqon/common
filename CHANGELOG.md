@@ -7,6 +7,24 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.2.1] - 2026-08-01
+
+### Added
+
+- Added `ptr.Of()` and `ptr.Deref()`.
+
+### Changed
+
+- Improved Go compatibility (Go 1.18+).
+- Updated `ptr` documentation and examples.
+
+### Deprecated
+
+- Deprecated `ptr.ToPtr()` in favor of `ptr.Of()`.
+- Deprecated `ptr.FromPtr()` in favor of `ptr.Deref()`.
+
+---
+
 ## [1.2.0] - 2026-08-01
 
 ### Added
