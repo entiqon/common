@@ -17,10 +17,11 @@ go get github.com/entiqon/entiqon
 
 ## 📦 Subpackages
 
-| Package                                                | Description                                                   |
-|--------------------------------------------------------|---------------------------------------------------------------|
-| [🧩 common/errors](../common/errors/README.md)         | Extended error types with cause, reason, and process stage.   |
-| [🧩 common/extension](../common/extension/README.md)   | Type parsers, collections, object helpers, and shortcuts.     |
+| Package                                              | Description                                                   |
+|------------------------------------------------------|---------------------------------------------------------------|
+| [🧩 common/errors](../common/errors/README.md)       | Extended error types with cause, reason, and process stage.   |
+| [🧩 common/extension](../common/extension/README.md) | Type parsers, collections, object helpers, and shortcuts.     |
+| [🧩 common/ptr](../common/ptr/README.md)             | Type parsers, collections, object helpers, and shortcuts.     |
 
 
 ---
