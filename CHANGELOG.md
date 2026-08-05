@@ -7,6 +7,18 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.3.0] - 2026-08-05
+
+### Added
+
+- Added the new `text` package for common string utilities.
+- Added `text.PadLeft()`, `text.PadRight()`, and `text.PadCenter()`.
+- Added `text.Truncate()` and `text.Ellipsis()`.
+- Added `text.Capitalize()`, `text.Uncapitalize()`, and `text.Reverse()`.
+- Added package documentation, README, examples, and unit tests.
+
+---
+
 ## [1.2.1] - 2026-08-01
 
 ### Added
