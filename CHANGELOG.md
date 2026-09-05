@@ -7,6 +7,15 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.4.0] - 2026-09-04
+
+### Changed
+
+- Moved `object` from `common/extension/object` to `common/object`.
+- Updated package documentation, examples, and tests.
+
+---
+
 ## [1.3.0] - 2026-08-05
 
 ### Added

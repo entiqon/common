@@ -1,5 +1,3 @@
-// File: common/object/set_value.go
-
 package object
 
 import (
@@ -31,7 +29,7 @@ func SetValue[O any, T any](object O, key string, value T) (O, error) {
 	}
 
 	// Handle nil pointer
-	if v.Kind() == reflect.Ptr && v.IsNil() {
+	if v.Kind() == reflect.Pointer && v.IsNil() {
 		return object, errors.New("nil pointer passed")
 	}
 
@@ -55,7 +53,7 @@ func SetValue[O any, T any](object O, key string, value T) (O, error) {
 
 		return object, nil
 
-	case reflect.Ptr:
+	case reflect.Pointer:
 		// Dereference pointer
 		elem := v.Elem()
 		if elem.Kind() != reflect.Struct {

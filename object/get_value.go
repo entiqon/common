@@ -1,5 +1,3 @@
-// File: common/object/get_value.go
-
 package object
 
 import (
@@ -22,7 +20,7 @@ func GetValue[T any](object any, key string, defaultVal T) T {
 	v := reflect.ValueOf(object)
 
 	// Handle pointer to underlying value
-	if v.Kind() == reflect.Ptr {
+	if v.Kind() == reflect.Pointer {
 		v = v.Elem()
 	}
 

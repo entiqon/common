@@ -1,4 +1,4 @@
-# Object Utilities 🧩
+# 🧩 Object Utilities
 
 Reflection-based helpers for dynamic object access and manipulation.
 
@@ -8,9 +8,9 @@ Part of the [`entiqon`](https://github.com/entiqon/entiqon) `common/extension` t
 
 ## ✨ Features
 
-- **Exists** → check if a property or key exists  
-- **GetValue** → safe typed retrieval with defaults  
-- **SetValue** → update fields/keys on maps and structs  
+- **Exists** → check if a property or key exists
+- **GetValue** → safe typed retrieval with defaults
+- **SetValue** → update fields/keys on maps and structs
 - Supports:
   - `map[string]any` (case-insensitive keys)
   - structs (exported fields + zero-arg methods)
@@ -41,7 +41,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/entiqon/common/extension/object"
+	"github.com/entiqon/common/object"
 )
 
 type Item struct {
@@ -77,6 +77,6 @@ func main() {
 
 ## 📌 Summary
 
-- **Exists**: quick presence check  
-- **GetValue**: safe retrieval with default fallback  
-- **SetValue**: update fields/keys dynamically  
+- **Exists**: quick presence check
+- **GetValue**: safe retrieval with default fallback
+- **SetValue**: update fields/keys dynamically

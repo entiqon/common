@@ -3,7 +3,7 @@ package object_test
 import (
 	"fmt"
 
-	"github.com/entiqon/common/extension/object"
+	"github.com/entiqon/common/object"
 )
 
 type Product struct {

@@ -1,12 +1,10 @@
-// File: common/object/object_test.go
-
 package object_test
 
 import (
 	"testing"
 	"time"
 
-	"github.com/entiqon/common/extension/object"
+	"github.com/entiqon/common/object"
 )
 
 type TestStruct struct {
@@ -339,14 +337,13 @@ func TestObject(t *testing.T) {
 		t.Run("InvalidType", func(t *testing.T) {
 			var i int = 0
 
-			_, err := object.SetValue(i, "LineNo", 100)
-			if err == nil {
+			if _, err := object.SetValue(i, "LineNo", 100); err == nil {
 				t.Errorf("expected error for unsupported type, got nil")
 			}
 		})
 
 		t.Run("InvalidObject", func(t *testing.T) {
-			var nilIface interface{} = nil
+			var nilIface any = nil
 			_, err := object.SetValue(nilIface, "foo", 123)
 			if err == nil || err.Error() != "invalid object" {
 				t.Errorf("SetValue with invalid object: expected error 'invalid object', got %v", err)
