@@ -5,14 +5,14 @@ package integer
 import (
 	"fmt"
 
-	"github.com/entiqon/common/extension/float"
+	"github.com/entiqon/common/float"
 )
 
 // ParseFrom converts a variety of input types into an int,
 // truncating any fractional part toward zero.
 //
 // Internally it delegates parsing to float.ParseFrom.
-func ParseFrom(value interface{}) (int, error) {
+func ParseFrom(value any) (int, error) {
 	f, err := float.ParseFrom(value)
 	if err != nil {
 		return 0, fmt.Errorf("failed to parse into integer: %w", err)

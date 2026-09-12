@@ -6,9 +6,9 @@ import (
 	"github.com/entiqon/common/extension/boolean"
 	"github.com/entiqon/common/extension/date"
 	"github.com/entiqon/common/extension/decimal"
-	"github.com/entiqon/common/extension/float"
 	"github.com/entiqon/common/extension/integer"
 	"github.com/entiqon/common/extension/number"
+	"github.com/entiqon/common/float"
 )
 
 // Boolean parses a value into a bool.

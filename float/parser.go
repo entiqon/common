@@ -1,5 +1,3 @@
-// File: common/math/float/parser.go
-
 package float
 
 import (

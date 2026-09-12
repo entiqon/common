@@ -7,6 +7,15 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.5.0] - 2026-09-12
+
+### Changed
+
+- Moved `float` from `common/extension/float` to `common/float`.
+- Updated related package documentation, parsers, examples, and tests.
+
+---
+
 ## [1.4.0] - 2026-09-04
 
 ### Changed

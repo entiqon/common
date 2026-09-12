@@ -28,7 +28,7 @@ import (
 //
 //	val, err := number.ParseFrom("123.6", true)  // val = 124, err = nil
 //	val, err := number.ParseFrom(123.4, false)   // err returned, not close to integer
-func ParseFrom(value interface{}, round bool) (int, error) {
+func ParseFrom(value any, round bool) (int, error) {
 	const epsilon = 1e-9
 
 	checkFloat := func(f float64) (int, error) {

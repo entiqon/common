@@ -8,6 +8,7 @@
 //
 //   - errors: structured error types with cause, reason, and process stage.
 //   - extension: type parsers, collections, and convenience shortcuts.
+//   - float: floating-point parsing and conversion utilities.
 //   - object: dynamic access and manipulation for maps and structs.
 //   - ptr: generic pointer utilities for working with optional values.
 //   - text: string padding, truncation, and presentation utilities.
