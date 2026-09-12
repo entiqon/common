@@ -6,6 +6,7 @@
 //
 // Subpackages include:
 //
+//   - date: date and timestamp parsing and formatting utilities.
 //   - errors: structured error types with cause, reason, and process stage.
 //   - extension: type parsers, collections, and convenience shortcuts.
 //   - float: floating-point parsing and conversion utilities.

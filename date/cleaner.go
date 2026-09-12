@@ -1,5 +1,3 @@
-// File: common/extension/date/cleaner.go
-
 package date
 
 import (
@@ -8,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/entiqon/common/extension/date/internal"
+	"github.com/entiqon/common/date/internal"
 )
 
 // CleanParseOptions controls CleanAndParse behavior.
@@ -61,9 +59,9 @@ func CleanAndParse(raw string, opts *CleanParseOptions) (time.Time, error) {
 		}
 	}
 
-	// Bare YYYYMMDD (8 digits) → reuse internal.ParseString for validation
+	// Bare YYYYMMDD (8 digits) → validate directly.
 	if internal.AllDigits(in) && len(in) == 8 {
-		if t, err := internal.ParseString(in); err == nil {
+		if t, err := internal.ParseYYYYMMDDPrefix(in); err == nil {
 			return t, nil
 		}
 	}

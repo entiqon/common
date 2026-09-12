@@ -1,10 +1,7 @@
 package extension
 
 import (
-	"time"
-
 	"github.com/entiqon/common/extension/boolean"
-	"github.com/entiqon/common/extension/date"
 	"github.com/entiqon/common/extension/decimal"
 	"github.com/entiqon/common/extension/integer"
 	"github.com/entiqon/common/extension/number"
@@ -25,26 +22,6 @@ func Boolean(value any) bool {
 // Returns the provided default if parsing fails.
 func BooleanOr(value any, def bool) bool {
 	v, err := boolean.ParseFrom(value)
-	if err != nil {
-		return def
-	}
-	return v
-}
-
-// Date parses a value into a time.Time.
-// Returns zero time if parsing fails.
-func Date(value any) time.Time {
-	v, err := date.ParseFrom(value)
-	if err != nil {
-		return time.Time{}
-	}
-	return v
-}
-
-// DateOr parses a value into a time.Time.
-// Returns the provided default if parsing fails.
-func DateOr(value any, def time.Time) time.Time {
-	v, err := date.ParseFrom(value)
 	if err != nil {
 		return def
 	}

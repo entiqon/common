@@ -1,5 +1,3 @@
-// File: common/extension/date/string.go
-
 package internal
 
 import (
@@ -78,71 +76,6 @@ func ParseZoned(layout, in string) (time.Time, bool) {
 		return time.Time{}, false
 	}
 	return t, true
-}
-
-// ParseString applies deterministic string parsing rules used across the package.
-// Order:
-//  1. RFC3339 (precise, includes zone)
-//  2. Pure digits fast-path: epoch seconds/ms, or YYYYMMDD
-//  3. Fallback layouts from DefaultLayouts() (date-only, zoneless, zoned)
-func ParseString(s string) (time.Time, error) {
-	in := strings.TrimSpace(s)
-	if in == "" {
-		return time.Time{}, errors.New("date.ParseFrom: empty string")
-	}
-
-	// 1) RFC3339
-	if t, ok := ParseRFC3339(in); ok {
-		return t, nil
-	}
-
-	// 2) Pure digits
-	if AllDigits(in) {
-		switch l := len(in); l {
-		case 10, 13: // epoch seconds/ms
-			if t, ok := ParseEpoch(in); ok {
-				return t, nil
-			}
-		case 8: // YYYYMMDD (with validation)
-			// Delegate to the already fully covered YYYYMMDD validator
-			// NOTE: ParseYYYYMMDDPrefix handles just the first 8 chars, so plain 8-digit works.
-			t, err := ParseYYYYMMDDPrefix(in)
-			if err != nil {
-				// Keep message style consistent with the prior code
-				return time.Time{}, errors.New("date.ParseFrom: invalid YYYYMMDD date")
-			}
-			return t, nil
-		}
-	}
-
-	// Fallback layouts (deterministic)
-	for _, layout := range DefaultLayouts() {
-		switch layout {
-		// date-only → normalize to UTC midnight
-		case "2006-01-02", "2006/01/02", "02 Jan 2006":
-			t, err := time.Parse(layout, in)
-			if err != nil {
-				continue
-			}
-			return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, time.UTC), nil
-
-		// zoneless → parse in Local, then convert to UTC
-		case "2006-01-02 15:04:05", "2006/01/02 15:04:05":
-			t, err := time.ParseInLocation(layout, in, time.Local)
-			if err != nil {
-				continue
-			}
-			return t.UTC(), nil
-
-		// zoned → preserve zone
-		case time.RFC1123:
-			if t, ok := ParseZoned(layout, in); ok {
-				return t, nil
-			}
-		}
-	}
-
-	return time.Time{}, errors.New("date.ParseFrom: unrecognized string format")
 }
 
 // ValidYMD returns true if (y, m, d) is a real calendar date.

@@ -1,5 +1,3 @@
-// File:
-
 package internal
 
 import "time"

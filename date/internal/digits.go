@@ -38,18 +38,18 @@ func LooksLikeEpochMillis(x int64) bool {
 
 func ToSecondsSigned(x int64) (int64, error) {
 	if LooksLikeEpochMillis(x) {
-		return 0, fmt.Errorf("date.ParseFrom: got %d (looks like milliseconds); integers are interpreted as seconds", x)
+		return 0, fmt.Errorf("date.From: got %d (looks like milliseconds); integers are interpreted as seconds", x)
 	}
 	return x, nil
 }
 
 func ToSecondsUnsigned(x uint64) (int64, error) {
 	if x > math.MaxInt64 {
-		return 0, errors.New("date.ParseFrom: unsigned value overflows int64 seconds")
+		return 0, errors.New("date.From: unsigned value overflows int64 seconds")
 	}
 	s := int64(x)
 	if LooksLikeEpochMillis(s) {
-		return 0, fmt.Errorf("date.ParseFrom: got %d (looks like milliseconds); integers are interpreted as seconds", s)
+		return 0, fmt.Errorf("date.From: got %d (looks like milliseconds); integers are interpreted as seconds", s)
 	}
 	return s, nil
 }

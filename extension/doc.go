@@ -1,26 +1,19 @@
-// Package extension provides strongly typed parsers and helpers for primitive
-// and structured values. It serves as the foundation for consistent data
-// normalization across Entiqon.
+// Package extension provides convenient conversions for common Go values.
 //
-// Each subpackage (boolean, date, decimal, float, number, integer, object, collection)
-// provides type-specific parsing utilities with full test coverage.
-//
-// In addition to subpackages, extension exposes **shortcut functions** that
-// simplify parsing with default fallbacks:
+// Its shortcut functions suppress parsing errors and return either a zero value
+// or a caller-provided fallback:
 //
 //   - BooleanOr(value any, def bool) bool
 //   - NumberOr(value any, def float64) float64
 //   - FloatOr(value any, def float64) float64
 //   - DecimalOr(value any, def string) decimal.Decimal
-//   - DateOr(value any, def time.Time) time.Time
+//   - Date(value any, orders ...date.Order) time.Time
+//   - DateOr(value any, def time.Time, orders ...date.Order) time.Time
 //
-// These shortcuts wrap the respective ParseFrom functions but return a caller-
-// supplied default value if parsing fails, avoiding error handling boilerplate.
+// Date and DateOr accept an optional date order for ambiguous day-first or
+// month-first inputs.
 //
 // Example:
 //
 //	send := extension.BooleanOr(c.QueryParam("send"), false)
-//
-// This will attempt to parse the "send" query parameter into a boolean. If the
-// value is invalid, it falls back to `false`.
 package extension

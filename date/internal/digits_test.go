@@ -1,12 +1,10 @@
-// File: common/extension/date/internal/digits_test.go
-
 package internal_test
 
 import (
 	"math"
 	"testing"
 
-	"github.com/entiqon/common/extension/date/internal"
+	"github.com/entiqon/common/date/internal"
 )
 
 func TestDigits(t *testing.T) {

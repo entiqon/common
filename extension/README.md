@@ -17,7 +17,7 @@ offering safe parsing functions with consistent error handling.
 | Package                | Description                                                                                         |
 |------------------------|-----------------------------------------------------------------------------------------------------|
 | [`boolean`](./boolean) | Parses arbitrary inputs into booleans (`true/false`, `1/0`, `yes/no`, `on/off`, `y/n`, `t/f`).      |
-| [`date`](./date)       | Date parsing utilities with cleaning, normalization, and leap year validation.                      |
+| [`date`](../date)       | Date parsing utilities with cleaning, normalization, and leap year validation.                      |
 | [`decimal`](./decimal) | Parses values into `float64` with a specified precision (`3.14159` → `3.14` if precision=2).        |
 | [`float`](../float)     | Parses values into `float64` with no restrictions. Supports ints, floats, strings, bools, pointers. |
 | [`integer`](./integer) | Parses values into `int`, always truncating toward zero (`3.99` → `3`, `-1.9` → `-1`).              |

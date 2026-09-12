@@ -7,6 +7,22 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.6.0] - 2026-09-12
+
+### Added
+
+- Added year-first, day-first, and month-first date parsing.
+- Added extended and compact date-time formats with timezone support.
+
+### Changed
+
+- Moved `date` from `common/extension/date` to `common/date`.
+- Expanded parsing for strings, byte slices, time values, and Unix timestamps.
+- Updated `extension.Date()` and `extension.DateOr()` to accept date-order preferences.
+- Updated related documentation, examples, and tests.
+
+---
+
 ## [1.5.0] - 2026-09-12
 
 ### Changed

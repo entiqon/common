@@ -1,5 +1,3 @@
-// File: common/extension/date/cleaner.go
-
 package date_test
 
 import (
@@ -7,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/entiqon/common/extension/date"
+	"github.com/entiqon/common/date"
 )
 
 func TestCleaner(t *testing.T) {
