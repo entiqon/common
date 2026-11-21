@@ -4,11 +4,11 @@
 
 Entiqon Common provides security updates for the most recent releases.
 
-| Version | Supported |
-|---------|:---------:|
-| Latest release | ✅ |
+| Version                |   Supported    |
+|------------------------|:--------------:|
+| Latest release         |       ✅       |
 | Previous minor release | ⚠️ Best effort |
-| Older versions | ❌ |
+| Older versions         |       ❌       |
 
 Users are strongly encouraged to upgrade to the latest stable release to receive security and reliability updates.
 

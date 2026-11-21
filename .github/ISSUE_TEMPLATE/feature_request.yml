@@ -1,0 +1,56 @@
+name: Feature request
+description: Propose a new function, package, or improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: input
+    id: package
+    attributes:
+      label: Package
+      description: The existing package this belongs to, or the name of a proposed new package.
+      placeholder: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and use case
+      description: What are you trying to do, and why is it hard today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: Function signatures and a short usage example.
+      render: go
+      placeholder: |
+        // Slugify converts s into a URL-friendly slug.
+        func Slugify(s string) string
+
+        text.Slugify("Hello, World!") // "hello-world"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other designs, or how you solve this today.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      description: See [CONTRIBUTING.md](https://github.com/entiqon/common/blob/main/CONTRIBUTING.md#what-not-to-contribute).
+      options:
+        - label: I searched the existing issues and this has not been proposed.
+          required: true
+        - label: It works with Go 1.18 or later.
+          required: false
+        - label: It adds no external dependencies.
+          required: false
+        - label: It does not break existing public APIs.
+          required: false

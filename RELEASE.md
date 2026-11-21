@@ -204,5 +204,5 @@ Maintain the following principles:
 # Maintainer
 
 - **Original Author:** Isidro A. López G.
-- **Organization:** Entiqon Project
+- **Organization:** Entiqon
 - **Official Repository:** https://github.com/entiqon/common

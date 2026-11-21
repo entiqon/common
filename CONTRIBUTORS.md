@@ -12,13 +12,24 @@ The project was originally designed and implemented by:
 
 ---
 
+# Maintainers
+
+Developers with write access who review, merge, and release changes.
+See the roles in [CONTRIBUTING.md](CONTRIBUTING.md#project-roles).
+
+| Name             | Since      |
+|------------------|------------|
+| Gailisis Dawsons | 2026-11-21 |
+
+---
+
 # Contributors
 
 Community members who have made accepted contributions to the project will be listed below.
 
-| Name | Contributions |
-|------|---------------|
-| _Coming soon_ | Community contributions are welcome! |
+| Name              | Contributions    |
+|-------------------|------------------|
+| Gailisis Dawsons  | Release workflow |
 
 ---
 

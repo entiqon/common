@@ -1,0 +1,85 @@
+name: Bug report
+description: Report a reproducible defect in an Entiqon Common package.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. For suspected vulnerabilities, follow the
+        [security policy](https://github.com/entiqon/common/security/policy) instead of opening an issue.
+
+  - type: input
+    id: package
+    attributes:
+      label: Package
+      description: The affected package, for example `ptr`, `text`, or `date`.
+      placeholder: ptr
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Entiqon Common version or commit
+      description: From your `go.mod`, for example `v1.7.0`.
+      placeholder: v1.7.0
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go version
+      description: Output of `go version`.
+      placeholder: go version go1.24.7 linux/amd64
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: The smallest program or test that shows the problem.
+      render: go
+      placeholder: |
+        package main
+
+        import "github.com/entiqon/common/ptr"
+
+        func main() {
+            _ = ptr.Of("example")
+        }
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Include the full error message or panic output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that helps, such as OS, architecture, or related issues.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched the existing issues and this bug has not been reported.
+          required: true
+        - label: I reproduced it with the latest release.
+          required: false
