@@ -7,6 +7,24 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.7.0] - 2026-11-21
+
+### Changed
+
+- Reworked `ptr.EmptyString()`, `ptr.NilIfEmpty()`, and `ptr.NilIfBlank()` to build on `ptr.Of()`.
+- Updated `ptr.Of()` to avoid the Go 1.26 `newexpr` hint while staying compatible with Go 1.18+.
+- Updated `ptr` tests to run without warnings on every supported Go version.
+- Updated the CI workflow to test Go 1.18, `oldstable`, and `stable`.
+- Pinned CI jobs to their matrix Go version with `GOTOOLCHAIN=local`.
+- Skipped the Codecov upload for pull requests from forks.
+- Improved the formatting check to list unformatted files.
+
+### Deprecated
+
+- `ptr.ToPtr()` and `ptr.FromPtr()` remain deprecated and will be removed in v2.0.0.
+
+---
+
 ## [1.6.0] - 2026-09-12
 
 ### Added

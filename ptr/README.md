@@ -5,7 +5,6 @@
   <a href="https://github.com/entiqon/entiqon">entiqon</a>::<a href="https://github.com/entiqon/common">common</a>
   toolkit.
 </h6>
-
 The `ptr` package provides lightweight, generic helpers for working with pointers in Go. It simplifies common pointer operations such as creating pointers, safely dereferencing values, working with optional values, and normalizing empty or blank strings.
 
 The package requires **Go 1.18 or later** because it uses generics.
@@ -24,7 +23,6 @@ go get github.com/entiqon/common/ptr
 - Convert empty strings to `nil`.
 - Convert blank (whitespace-only) strings to `nil`.
 - Generic implementation with zero external dependencies.
-
 ## Usage
 
 ### Create a Pointer
@@ -33,16 +31,16 @@ Use `Of` to create a pointer from any value.
 
 ```go
 package main
-
+ 
 import (
 	"fmt"
-
+ 
 	"github.com/entiqon/common/ptr"
 )
-
+ 
 func main() {
 	name := ptr.Of("John")
-
+ 
 	fmt.Println(*name)
 }
 ```
@@ -52,7 +50,7 @@ Output:
 ```text
 John
 ```
-
+ 
 ---
 
 ### Dereference with a Default Value
@@ -61,20 +59,20 @@ Use `Deref` to safely read a pointer, returning a default value when the pointer
 
 ```go
 package main
-
+ 
 import (
 	"fmt"
-
+ 
 	"github.com/entiqon/common/ptr"
 )
-
+ 
 func main() {
 	var age *int
-
+ 
 	fmt.Println(ptr.Deref(age, 18))
-
+ 
 	age = ptr.Of(25)
-
+ 
 	fmt.Println(ptr.Deref(age, 18))
 }
 ```
@@ -85,7 +83,7 @@ Output:
 18
 25
 ```
-
+ 
 ---
 
 ### Create an Empty String Pointer
@@ -94,16 +92,16 @@ Use `EmptyString` when a `*string` is required and the value should be the empty
 
 ```go
 package main
-
+ 
 import (
 	"fmt"
-
+ 
 	"github.com/entiqon/common/ptr"
 )
-
+ 
 func main() {
 	value := ptr.EmptyString()
-
+ 
 	fmt.Printf("%q\n", *value)
 }
 ```
@@ -113,7 +111,7 @@ Output:
 ```text
 ""
 ```
-
+ 
 ---
 
 ### Return `nil` for Empty Strings
@@ -122,18 +120,18 @@ Use `NilIfEmpty` when an empty string should be treated as an absent value.
 
 ```go
 package main
-
+ 
 import (
 	"fmt"
-
+ 
 	"github.com/entiqon/common/ptr"
 )
-
+ 
 func main() {
 	fmt.Println(ptr.NilIfEmpty(""))
-
+ 
 	value := ptr.NilIfEmpty("hello")
-
+ 
 	if value != nil {
 		fmt.Println(*value)
 	}
@@ -146,7 +144,7 @@ Output:
 <nil>
 hello
 ```
-
+ 
 ---
 
 ### Return `nil` for Blank Strings
@@ -155,18 +153,18 @@ Use `NilIfBlank` when whitespace-only strings should also be considered absent.
 
 ```go
 package main
-
+ 
 import (
 	"fmt"
-
+ 
 	"github.com/entiqon/common/ptr"
 )
-
+ 
 func main() {
 	fmt.Println(ptr.NilIfBlank("   "))
-
+ 
 	value := ptr.NilIfBlank(" hello ")
-
+ 
 	if value != nil {
 		fmt.Println(*value)
 	}
@@ -190,12 +188,14 @@ Output:
 | `NilIfEmpty(v string) *string` | Returns `nil` if `v` is empty; otherwise returns a pointer to `v`.                             |
 | `NilIfBlank(v string) *string` | Returns `nil` if `v` is empty or contains only whitespace; otherwise returns a pointer to `v`. |
 
-### Deprecated
+### Removed
 
-| Function                        | Replacement                  |
-|---------------------------------|------------------------------|
-| `ToPtr[T any](v T) *T`          | Use `Of(v)` instead.         |
-| `FromPtr[T any](p *T, def T) T` | Use `Deref(p, def)` instead. |
+These functions were removed. Their replacements take the same arguments.
+
+| Removed                         | Use instead     |
+|---------------------------------|-----------------|
+| `ToPtr[T any](v T) *T`          | `Of(v)`         |
+| `FromPtr[T any](p *T, def T) T` | `Deref(p, def)` |
 
 ## When to Use
 
@@ -207,7 +207,6 @@ The `ptr` package is useful when working with:
 - Configuration objects.
 - DTOs and API request/response models.
 - APIs that use pointers to distinguish between zero values and missing values.
-
 ## License
 
 This package is part of the **Entiqon Common** library and is distributed under the MIT License.

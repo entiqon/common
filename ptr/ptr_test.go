@@ -32,28 +32,28 @@ func TestPtrSuite(t *testing.T) {
 			}
 		})
 
-		t.Run("ToPtr", func(t *testing.T) {
+		t.Run("Of", func(t *testing.T) {
 			t.Run("Int", func(t *testing.T) {
-				got := ptr.ToPtr(42)
+				got := ptr.Of(42)
 
 				if got == nil {
-					t.Fatal("ToPtr returned nil")
+					t.Fatal("Of returned nil")
 				}
 
 				if *got != 42 {
-					t.Errorf("ToPtr(42) = %d; want 42", *got)
+					t.Errorf("Of(42) = %d; want 42", *got)
 				}
 			})
 
 			t.Run("String", func(t *testing.T) {
-				got := ptr.ToPtr("hello")
+				got := ptr.Of("hello")
 
 				if got == nil {
-					t.Fatal("ToPtr returned nil")
+					t.Fatal("Of returned nil")
 				}
 
 				if *got != "hello" {
-					t.Errorf(`ToPtr("hello") = %q; want "hello"`, *got)
+					t.Errorf(`Of("hello") = %q; want "hello"`, *got)
 				}
 			})
 
@@ -63,50 +63,52 @@ func TestPtrSuite(t *testing.T) {
 					B: "seven",
 				}
 
-				got := ptr.ToPtr(want)
+				got := ptr.Of(want)
 
 				if got == nil {
-					t.Fatal("ToPtr returned nil")
+					t.Fatal("Of returned nil")
 				}
 
 				if *got != want {
-					t.Errorf("ToPtr(%v) = %v; want %v", want, *got, want)
+					t.Errorf("Of(%v) = %v; want %v", want, *got, want)
 				}
 			})
 		})
 
-		t.Run("FromPtr", func(t *testing.T) {
-			t.Run("ReturnsPointerValue", func(t *testing.T) {
+		t.Run("Deref", func(t *testing.T) {
+			t.Run("Pointer", func(t *testing.T) {
 				value := "hello"
 
-				got := ptr.FromPtr(&value, "fallback")
+				got := ptr.Deref(&value, "fallback")
 
 				if got != value {
-					t.Errorf("FromPtr() = %q; want %q", got, value)
+					t.Errorf("Deref() = %q; want %q", got, value)
 				}
 			})
 
-			t.Run("ReturnsDefaultForNilPointer", func(t *testing.T) {
-				got := ptr.FromPtr[string](nil, "fallback")
+			t.Run("Fallback", func(t *testing.T) {
+				var missing *string
+
+				got := ptr.Deref(missing, "fallback")
 
 				if got != "fallback" {
-					t.Errorf(`FromPtr(nil) = %q; want "fallback"`, got)
+					t.Errorf(`Deref(nil) = %q; want "fallback"`, got)
 				}
 			})
 
-			t.Run("SupportsStruct", func(t *testing.T) {
+			t.Run("Struct", func(t *testing.T) {
 				want := sample{
 					A: 7,
 					B: "seven",
 				}
 
-				got := ptr.FromPtr(
-					ptr.ToPtr(want),
+				got := ptr.Deref(
+					ptr.Of(want),
 					sample{},
 				)
 
 				if got != want {
-					t.Errorf("FromPtr() = %v; want %v", got, want)
+					t.Errorf("Deref() = %v; want %v", got, want)
 				}
 			})
 
@@ -122,19 +124,43 @@ func TestPtrSuite(t *testing.T) {
 					time.UTC,
 				)
 
-				got := ptr.FromPtr(
-					ptr.ToPtr(want),
+				got := ptr.Deref(
+					ptr.Of(want),
 					time.Time{},
 				)
 
 				if !got.Equal(want) {
 					t.Errorf(
-						"FromPtr() = %s; want %s",
+						"Deref() = %s; want %s",
 						got.Format(time.RFC3339Nano),
 						want.Format(time.RFC3339Nano),
 					)
 				}
 			})
+		})
+	})
+
+	t.Run("Deprecated", func(t *testing.T) {
+		t.Run("ToPtr", func(t *testing.T) {
+			got := ptr.ToPtr(42)
+
+			if got == nil {
+				t.Fatal("ToPtr returned nil")
+			}
+
+			if *got != 42 {
+				t.Errorf("ToPtr(42) = %d; want 42", *got)
+			}
+		})
+
+		t.Run("FromPtr", func(t *testing.T) {
+			var missing *string
+
+			got := ptr.FromPtr(missing, "fallback")
+
+			if got != "fallback" {
+				t.Errorf(`FromPtr(nil) = %q; want "fallback"`, got)
+			}
 		})
 	})
 
@@ -161,8 +187,8 @@ func TestPtrSuite(t *testing.T) {
 			},
 		}
 
-		for _, tc := range tests {
-			tc := tc
+		for i := range tests {
+			tc := tests[i]
 
 			t.Run(tc.name, func(t *testing.T) {
 				got := ptr.NilIfEmpty(tc.input)
@@ -236,8 +262,8 @@ func TestPtrSuite(t *testing.T) {
 			},
 		}
 
-		for _, tc := range tests {
-			tc := tc
+		for i := range tests {
+			tc := tests[i]
 
 			t.Run(tc.name, func(t *testing.T) {
 				got := ptr.NilIfBlank(tc.input)

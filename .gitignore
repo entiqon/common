@@ -49,9 +49,6 @@ docs/_site/
 docs/public/
 public/
 
-# Temporary release artifacts
-releases/
-
 # Build artifacts
 dist/
 bin/
