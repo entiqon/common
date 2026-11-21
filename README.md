@@ -31,13 +31,13 @@ go get github.com/entiqon/common
 ## 📦 Subpackages
 
 | Package                                              | Description                                                   |
-| ---------------------------------------------------- | ------------------------------------------------------------- |
+|------------------------------------------------------|---------------------------------------------------------------|
 | [🧩 common/date](../common/date/README.md)           | Date and timestamp parsing and formatting utilities.          |
 | [🧩 common/errors](../common/errors/README.md)       | Structured error types with cause, reason, and process stage. |
 | [🧩 common/extension](../common/extension/README.md) | Convenience conversions with zero-value or custom fallbacks.  |
 | [🧩 common/float](../common/float/README.md)         | Floating-point parsing and conversion utilities.              |
 | [🧩 common/object](../common/object/README.md)       | Dynamic access and manipulation for maps and structs.         |
-| [🧩 common/ptr](../common/ptr/README.md)             | Generic pointer utilities for working with optional values.   |
+| [🧩 common/ptr](./ptr/README.md)                     | Generic pointer utilities for working with optional values.   |
 | [🧩 common/text](../common/text/README.md)           | String padding, truncation, and presentation utilities.       |
 
 ---

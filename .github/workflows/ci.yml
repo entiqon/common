@@ -11,16 +11,26 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Go ${{ matrix.go-version }}
     runs-on: ubuntu-latest
 
+    env:
+      # Use exactly the Go version from the matrix. Without this, Go 1.21+
+      # silently downloads a newer toolchain when go.mod asks for one.
+      GOTOOLCHAIN: local
+
     strategy:
       fail-fast: false
       matrix:
         go-version:
-          - "1.26"
+          - "1.18" # oldest supported version (first with generics)
+          - oldstable
           - stable
 
     steps:
@@ -37,8 +47,14 @@ jobs:
         run: go mod download
 
       - name: Verify formatting
+        if: matrix.go-version == 'stable'
         run: |
-          test -z "$(gofmt -l .)"
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "These files need gofmt:"
+            echo "$unformatted"
+            exit 1
+          fi
 
       - name: Run go vet
         run: go vet ./...
@@ -70,7 +86,12 @@ jobs:
           }'
 
       - name: Upload coverage to Codecov
-        if: success() && matrix.go-version == 'stable'
+        # Pull requests from forks get no secrets, so skip them instead of failing.
+        if: >-
+          success() &&
+          matrix.go-version == 'stable' &&
+          (github.event_name == 'push' ||
+           github.event.pull_request.head.repo.full_name == github.repository)
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.out
