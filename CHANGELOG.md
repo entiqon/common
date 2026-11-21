@@ -7,6 +7,27 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.8.0] - 2026-11-21
+
+### Added
+
+- Added the new `testkit` package with dependency-free test helpers for Go 1.18+.
+- Added value and error assertions: `Equal()`, `DeepEqual()`, `Match()`, `Pointer()`, `ErrorIs()`, `ErrorAs()`, `MustValue()`, and more.
+- Added JSON and HTTP helpers: `JSONEqual()`, `DecodeJSON()`, `Serve()`, `Server()`, `RoundTripFunc`, and `Response()`.
+- Added async, file, and time helpers: `Eventually()`, `Receive()`, `Context()`, `WriteFiles()`, `EqualFile()`, and `FakeClock`.
+- Added `Passes()`, `FailsSoft()`, `FailsHard()`, and `Record()` for testing custom test helpers.
+- Added package documentation, README, examples, and unit tests with 100% coverage.
+- Added a release workflow that creates a draft pre-release when a version tag is pushed.
+- Added contribution guidelines for roles, reviews, merging, and releases.
+- Added issue templates, a pull request template, and `CODEOWNERS`.
+
+### Changed
+
+- Updated the main README with the `testkit` package, working package links, and the Go 1.18+ badge.
+- Renamed project attribution from Entiqon Project to Entiqon Labs.
+
+---
+
 ## [1.7.0] - 2026-11-21
 
 ### Changed
