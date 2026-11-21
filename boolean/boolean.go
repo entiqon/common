@@ -1,5 +1,3 @@
-// File: common/boolean/parser.go
-
 package boolean
 
 import (
@@ -8,7 +6,7 @@ import (
 	"strings"
 )
 
-// ParseFrom attempts to parse the given value into a boolean.
+// From attempts to parse the given value into a boolean.
 //
 // Supported input types:
 //   - bool: returns the value directly.
@@ -23,15 +21,13 @@ import (
 //
 // Examples:
 //
-//	boolVal, err := ParseFrom(true)     // true
-//	boolVal, err := ParseFrom("yes")    // true
-//	boolVal, err := ParseFrom("OFF")    // false
-//	boolVal, err := ParseFrom("t")      // true
-//	boolVal, err := ParseFrom("n")      // false
-//	boolVal, err := ParseFrom(1)        // true
-//	boolVal, err := ParseFrom(0.0)      // false
-//	boolVal, err := ParseFrom("invalid") // error returned
-func ParseFrom(value any) (bool, error) {
+//	From(true)      // true, nil
+//	From("yes")     // true, nil
+//	From("OFF")     // false, nil
+//	From(1)         // true, nil
+//	From(0.0)       // false, nil
+//	From("invalid") // false, error
+func From(value any) (bool, error) {
 	if value == nil {
 		return false, fmt.Errorf("nil cannot be parsed as boolean")
 	}
@@ -60,4 +56,31 @@ func ParseFrom(value any) (bool, error) {
 	default:
 		return false, fmt.Errorf("unsupported type %T for boolean parsing", v)
 	}
+}
+
+// FromOr parses value like From, but returns fallback instead of an error
+// when value cannot be interpreted as a boolean.
+//
+//	FromOr("yes", false)   // true
+//	FromOr("maybe", false) // false
+//	FromOr(nil, true)      // true
+func FromOr(value any, fallback bool) bool {
+	b, err := From(value)
+	if err != nil {
+		return fallback
+	}
+
+	return b
+}
+
+// ToString returns trueStr if b is true, otherwise falseStr.
+//
+//	ToString(true, "enabled", "disabled") // "enabled"
+//	ToString(false, "yes", "no")          // "no"
+func ToString(b bool, trueStr, falseStr string) string {
+	if b {
+		return trueStr
+	}
+
+	return falseStr
 }

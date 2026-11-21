@@ -30,19 +30,20 @@ go get github.com/entiqon/common
 
 ## 📦 Subpackages
 
-| Package                                      | Description                                                   |
-|----------------------------------------------|---------------------------------------------------------------|
-| [🧩 common/date](./date/README.md)           | Date and timestamp parsing and formatting utilities.          |
-| [🧩 common/errors](./errors/README.md)       | Structured error types with cause, reason, and process stage. |
-| [🧩 common/extension](./extension/README.md) | Convenience conversions with zero-value or custom fallbacks.  |
-| [🧩 common/float](./float/README.md)         | Floating-point parsing and conversion utilities.              |
-| [🧩 common/object](./object/README.md)       | Dynamic access and manipulation for maps and structs.         |
-| [🧩 common/ptr](./ptr/README.md)             | Generic pointer utilities for working with optional values.   |
-| [🧩 common/testkit](./testkit/README.md)     | Dependency-free helpers for writing and testing Go tests.     |
-| [🧩 common/text](./text/README.md)           | String padding, truncation, and presentation utilities.       |
+| Package                                     | Description                                                        |
+|---------------------------------------------|--------------------------------------------------------------------|
+| [🧩 common/boolean](./boolean/README.md)     | Boolean parsing from common representations and string formatting. |
+| [🧩 common/date](./date/README.md)           | Date and timestamp parsing and formatting utilities.               |
+| [🧩 common/errors](./errors/README.md)       | Structured error types with cause, reason, and process stage.      |
+| [🧩 common/extension](./extension/README.md) | Convenience conversions with zero-value or custom fallbacks.       |
+| [🧩 common/float](./float/README.md)         | Floating-point parsing and conversion utilities.                   |
+| [🧩 common/object](./object/README.md)       | Dynamic access and manipulation for maps and structs.              |
+| [🧩 common/ptr](./ptr/README.md)             | Generic pointer utilities for working with optional values.        |
+| [🧩 common/testkit](./testkit/README.md)     | Dependency-free helpers for writing and testing Go tests.          |
+| [🧩 common/text](./text/README.md)           | String padding, truncation, and presentation utilities.            |
 
 ---
 
 ## 📄 License
 
-[MIT](LICENSE) — © Entiqon
+[MIT](LICENSE) — © Entiqon Labs
