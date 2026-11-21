@@ -1,0 +1,113 @@
+name: Release
+
+# Push a vMAJOR.MINOR.PATCH tag and this workflow validates the tagged code and
+# creates a DRAFT pre-release whose notes come from the matching CHANGELOG.md
+# section. Nothing is published automatically: review the draft, then publish it
+# yourself from the Releases page or with `gh release edit`.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    name: Draft ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # create the draft release
+
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Check tag
+        id: v
+        run: |
+          set -euo pipefail
+
+          version="${GITHUB_REF_NAME#v}"
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME is not vMAJOR.MINOR.PATCH"; exit 1
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: stable
+          cache: true
+
+      - name: Validate sources
+        run: |
+          set -euo pipefail
+
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "::error::These files need gofmt:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+          go vet ./...
+          go test -race ./...
+
+      - name: Extract release notes
+        id: notes
+        run: |
+          set -euo pipefail
+
+          # The "## [X.Y.Z]" section without its heading, the "---" separators,
+          # or leading/trailing blank lines.
+          awk -v v="${{ steps.v.outputs.version }}" '
+            index($0, "## [" v "]") == 1 { found = 1; next }
+            found && /^## \[/            { exit }
+            found && $0 != "---"         { lines[++n] = $0 }
+            END {
+              first = 1; last = n
+              while (first <= last && lines[first] ~ /^[[:space:]]*$/) first++
+              while (last >= first && lines[last]  ~ /^[[:space:]]*$/) last--
+              for (i = first; i <= last; i++) print lines[i]
+            }
+          ' CHANGELOG.md > notes.md
+
+          if [ -s notes.md ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No '## [${{ steps.v.outputs.version }}]' section in CHANGELOG.md; the draft uses GitHub's generated notes."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create draft pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            echo "::notice::A release for $GITHUB_REF_NAME already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          if [ "${{ steps.notes.outputs.found }}" = "true" ]; then
+            notes=(--notes-file notes.md)
+          else
+            notes=(--generate-notes)
+          fi
+
+          gh release create "$GITHUB_REF_NAME" \
+            --verify-tag \
+            --title "Entiqon Common $GITHUB_REF_NAME" \
+            --draft \
+            --prerelease \
+            "${notes[@]}"
