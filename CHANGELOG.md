@@ -9,6 +9,10 @@ and this project adheres to Semantic Versioning.
 
 ## [1.9.0] - 2026-11-21
 
+### Added
+
+- Added boolean.FromOr () to parse a value with a fallback instead of an error.
+
 ### Changed
 
 - Moved `boolean` from `common/extension/boolean` to `common/boolean`.
@@ -18,7 +22,9 @@ and this project adheres to Semantic Versioning.
 
 ### Deprecated
 
-- Deprecated `common/extension/boolean`; `ParseFrom()` and `BoolToString()` forward to the new package and will be removed in v2.0.0.
+- Deprecated `common/extension/boolean`; `ParseFrom()` and `BoolToString()` forward to the new package and will be
+  removed in v2.0.0.
+- Deprecated `extension.Boolean()` and `extension.BooleanOr()` in favor of `boolean.FromOr()`.
 
 ---
 
@@ -27,9 +33,11 @@ and this project adheres to Semantic Versioning.
 ### Added
 
 - Added the new `testkit` package with dependency-free test helpers for Go 1.18+.
-- Added value and error assertions: `Equal()`, `DeepEqual()`, `Match()`, `Pointer()`, `ErrorIs()`, `ErrorAs()`, `MustValue()`, and more.
+- Added value and error assertions: `Equal()`, `DeepEqual()`, `Match()`, `Pointer()`, `ErrorIs()`, `ErrorAs()`,
+  `MustValue()`, and more.
 - Added JSON and HTTP helpers: `JSONEqual()`, `DecodeJSON()`, `Serve()`, `Server()`, `RoundTripFunc`, and `Response()`.
-- Added async, file, and time helpers: `Eventually()`, `Receive()`, `Context()`, `WriteFiles()`, `EqualFile()`, and `FakeClock`.
+- Added async, file, and time helpers: `Eventually()`, `Receive()`, `Context()`, `WriteFiles()`, `EqualFile()`, and
+  `FakeClock`.
 - Added `Passes()`, `FailsSoft()`, `FailsHard()`, and `Record()` for testing custom test helpers.
 - Added package documentation, README, examples, and unit tests with 100% coverage.
 

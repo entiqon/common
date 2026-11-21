@@ -57,3 +57,30 @@ func From(value any) (bool, error) {
 		return false, fmt.Errorf("unsupported type %T for boolean parsing", v)
 	}
 }
+
+// FromOr parses value like From, but returns fallback instead of an error
+// when value cannot be interpreted as a boolean.
+//
+//	FromOr("yes", false)   // true
+//	FromOr("maybe", false) // false
+//	FromOr(nil, true)      // true
+func FromOr(value any, fallback bool) bool {
+	b, err := From(value)
+	if err != nil {
+		return fallback
+	}
+
+	return b
+}
+
+// ToString returns trueStr if b is true, otherwise falseStr.
+//
+//	ToString(true, "enabled", "disabled") // "enabled"
+//	ToString(false, "yes", "no")          // "no"
+func ToString(b bool, trueStr, falseStr string) string {
+	if b {
+		return trueStr
+	}
+
+	return falseStr
+}

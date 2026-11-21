@@ -10,9 +10,13 @@
 //     anything else is true.
 //
 // Any other input, including nil and unknown strings, returns an error.
+// FromOr parses the same inputs but returns a fallback instead of an error.
 //
-// ToString formats a bool as one of two custom strings:
+// ToString formats a bool as one of two custom strings.
+//
+// For example:
 //
 //	ok, err := boolean.From("yes")                         // true, nil
+//	debug := boolean.FromOr(os.Getenv("DEBUG"), false)     // false if unset or invalid
 //	label := boolean.ToString(false, "enabled", "disabled") // "disabled"
 package boolean

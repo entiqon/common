@@ -7,9 +7,24 @@ import (
 )
 
 func ExampleFrom() {
-	b, _ := boolean.From("yes")
-	fmt.Println(b)
-	// Output: true
+	b, err := boolean.From("yes")
+	fmt.Println(b, err)
+
+	_, err = boolean.From("maybe")
+	fmt.Println(err)
+	// Output:
+	// true <nil>
+	// invalid boolean string: "maybe"
+}
+
+func ExampleFromOr() {
+	fmt.Println(boolean.FromOr("on", false))
+	fmt.Println(boolean.FromOr("maybe", true))
+	fmt.Println(boolean.FromOr(nil, false))
+	// Output:
+	// true
+	// true
+	// false
 }
 
 func ExampleToString() {

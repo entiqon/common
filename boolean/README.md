@@ -21,6 +21,7 @@ go get github.com/entiqon/common/boolean
 - Parse `bool`, `string`, integer, unsigned integer, and floating-point values into `bool`.
 - Accept `true/false`, `1/0`, `yes/no`, `y/n`, `t/f`, and `on/off`, ignoring case and surrounding whitespace.
 - Return an error for `nil`, unknown strings, and unsupported types instead of guessing.
+- Fall back to a default value instead of handling an error with `FromOr`.
 - Format a `bool` as any pair of strings.
 - Zero external dependencies.
 
@@ -64,6 +65,39 @@ error: invalid boolean string: "maybe"
 
 ---
 
+### Parse with a Fallback
+
+Use `FromOr` when an invalid or missing value should simply use a default.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/entiqon/common/boolean"
+)
+
+func main() {
+	os.Setenv("FEATURE_X", "on")
+
+	fmt.Println(boolean.FromOr(os.Getenv("FEATURE_X"), false))
+	fmt.Println(boolean.FromOr(os.Getenv("NOT_SET"), false))
+	fmt.Println(boolean.FromOr("maybe", true))
+}
+```
+
+Output:
+
+```text
+true
+false
+true
+```
+
+---
+
 ### Format a Boolean
 
 Use `ToString` to turn a `bool` into labels for display.
@@ -95,6 +129,7 @@ no
 | Function                                             | Description                                                              |
 |------------------------------------------------------|--------------------------------------------------------------------------|
 | `From(value any) (bool, error)`                      | Parses `value` into a `bool`; returns an error for unsupported input.    |
+| `FromOr(value any, fallback bool) bool`              | Parses `value` into a `bool`; returns `fallback` for unsupported input.  |
 | `ToString(b bool, trueStr, falseStr string) string`  | Returns `trueStr` if `b` is true; otherwise returns `falseStr`.          |
 
 ### Accepted Values
@@ -107,12 +142,14 @@ no
 
 ### Deprecated
 
-This package moved from `common/extension/boolean`. The old path still works but will be removed in v2.0.0.
+This package moved from `common/extension/boolean`, and its `extension` shortcuts are replaced by `FromOr`. The old functions still work but will be removed in v2.0.0.
 
-| Old function (`common/extension/boolean`) | Replacement (`common/boolean`)   |
-|-------------------------------------------|----------------------------------|
-| `ParseFrom(value)`                        | `From(value)`                    |
-| `BoolToString(b, trueStr, falseStr)`      | `ToString(b, trueStr, falseStr)` |
+| Old function                                    | Replacement (`common/boolean`)   |
+|-------------------------------------------------|----------------------------------|
+| `extension/boolean.ParseFrom(value)`            | `From(value)`                    |
+| `extension/boolean.BoolToString(b, t, f)`       | `ToString(b, t, f)`              |
+| `extension.Boolean(value)`                      | `FromOr(value, false)`           |
+| `extension.BooleanOr(value, fallback)`          | `FromOr(value, fallback)`        |
 
 ## License
 

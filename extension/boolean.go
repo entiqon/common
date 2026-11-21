@@ -2,22 +2,16 @@ package extension
 
 import "github.com/entiqon/common/boolean"
 
-// Boolean parses a value into a bool.
-// Returns false if parsing fails.
+// Boolean converts value to a bool, returning false when it cannot.
+//
+// Deprecated: Use boolean.FromOr(value, false) from github.com/entiqon/common/boolean instead.
 func Boolean(value any) bool {
-	v, err := boolean.From(value)
-	if err != nil {
-		return false
-	}
-	return v
+	return boolean.FromOr(value, false)
 }
 
-// BooleanOr parses a value into a bool.
-// Returns the provided default if parsing fails.
-func BooleanOr(value any, def bool) bool {
-	v, err := boolean.From(value)
-	if err != nil {
-		return def
-	}
-	return v
+// BooleanOr converts value to a bool, returning fallback when it cannot.
+//
+// Deprecated: Use boolean.FromOr from github.com/entiqon/common/boolean instead.
+func BooleanOr(value any, fallback bool) bool {
+	return boolean.FromOr(value, fallback)
 }
