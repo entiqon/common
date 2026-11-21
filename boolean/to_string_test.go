@@ -3,10 +3,10 @@ package boolean_test
 import (
 	"testing"
 
-	"github.com/entiqon/common/extension/boolean"
+	"github.com/entiqon/common/boolean"
 )
 
-func TestBoolToString(t *testing.T) {
+func TestToString(t *testing.T) {
 	tests := []struct {
 		input    bool
 		trueStr  string
@@ -20,9 +20,9 @@ func TestBoolToString(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got := boolean.BoolToString(tt.input, tt.trueStr, tt.falseStr)
+		got := boolean.ToString(tt.input, tt.trueStr, tt.falseStr)
 		if got != tt.want {
-			t.Errorf("BoolToString(%v, %q, %q) = %q; want %q",
+			t.Errorf("ToString(%v, %q, %q) = %q; want %q",
 				tt.input, tt.trueStr, tt.falseStr, got, tt.want)
 		}
 	}

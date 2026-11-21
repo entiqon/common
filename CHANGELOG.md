@@ -7,6 +7,21 @@ and this project adheres to Semantic Versioning.
 
 ---
 
+## [1.9.0] - 2026-11-21
+
+### Changed
+
+- Moved `boolean` from `common/extension/boolean` to `common/boolean`.
+- Renamed `ParseFrom()` to `From()` and `BoolToString()` to `ToString()` in `boolean`.
+- Updated related package documentation, examples, and tests.
+- Added `common/boolean` to the main README.
+
+### Deprecated
+
+- Deprecated `common/extension/boolean`; `ParseFrom()` and `BoolToString()` forward to the new package and will be removed in v2.0.0.
+
+---
+
 ## [1.8.0] - 2026-11-21
 
 ### Added
@@ -17,9 +32,6 @@ and this project adheres to Semantic Versioning.
 - Added async, file, and time helpers: `Eventually()`, `Receive()`, `Context()`, `WriteFiles()`, `EqualFile()`, and `FakeClock`.
 - Added `Passes()`, `FailsSoft()`, `FailsHard()`, and `Record()` for testing custom test helpers.
 - Added package documentation, README, examples, and unit tests with 100% coverage.
-- Added a release workflow that creates a draft pre-release when a version tag is pushed.
-- Added contribution guidelines for roles, reviews, merging, and releases.
-- Added issue templates, a pull request template, and `CODEOWNERS`.
 
 ### Changed
 
@@ -29,6 +41,12 @@ and this project adheres to Semantic Versioning.
 ---
 
 ## [1.7.0] - 2026-11-21
+
+### Added
+
+- Added a release workflow that creates a draft pre-release when a version tag is pushed.
+- Added contribution guidelines for roles, reviews, merging, and releases.
+- Added issue templates, a pull request template, and `CODEOWNERS`.
 
 ### Changed
 

@@ -1,32 +1,11 @@
 package extension
 
 import (
-	"github.com/entiqon/common/extension/boolean"
 	"github.com/entiqon/common/extension/decimal"
 	"github.com/entiqon/common/extension/integer"
 	"github.com/entiqon/common/extension/number"
 	"github.com/entiqon/common/float"
 )
-
-// Boolean parses a value into a bool.
-// Returns false if parsing fails.
-func Boolean(value any) bool {
-	v, err := boolean.ParseFrom(value)
-	if err != nil {
-		return false
-	}
-	return v
-}
-
-// BooleanOr parses a value into a bool.
-// Returns the provided default if parsing fails.
-func BooleanOr(value any, def bool) bool {
-	v, err := boolean.ParseFrom(value)
-	if err != nil {
-		return def
-	}
-	return v
-}
 
 // Decimal parses a value into a float64 with precision.
 // Precision must be provided explicitly. Returns 0 if parsing fails.
